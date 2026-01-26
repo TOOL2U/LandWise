@@ -10,7 +10,7 @@ const packages = [
     id: 'snapshot',
     name: 'LAND SNAPSHOT',
     tagline: 'See your land clearly.',
-    image: '/assets/03_package1_visual.svg',
+    image: '/assets/package 1.png',
     price: '15,000–25,000 THB',
     features: [
       'Drone 2D map',
@@ -24,7 +24,7 @@ const packages = [
     id: 'visibility',
     name: 'LAND VISIBILITY REPORT',
     tagline: 'Decide with confidence.',
-    image: '/assets/04_package2_visual.svg',
+    image: '/assets/package 2.png',
     price: '30,000–60,000 THB',
     features: [
       'Everything in Package 1',
@@ -40,7 +40,7 @@ const packages = [
     id: 'ready',
     name: 'LAND READY PACKAGE',
     tagline: 'Plan it, clear it.',
-    image: '/assets/05_package3_visual.svg',
+    image: '/assets/package 3.png',
     price: 'Project-based',
     features: [
       'Everything in Package 2',
