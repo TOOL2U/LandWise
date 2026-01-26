@@ -2,11 +2,17 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'th' : 'en');
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
@@ -23,16 +29,27 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
             <Link href="#packages" className="text-sm lg:text-base text-charcoal hover:text-forest transition-colors font-medium">
-              Packages
+              {t.nav.packages}
             </Link>
             <Link href="#deliverables" className="text-sm lg:text-base text-charcoal hover:text-forest transition-colors font-medium">
-              Deliverables
+              {t.nav.deliverables}
             </Link>
             <Link href="#contact" className="text-sm lg:text-base text-charcoal hover:text-forest transition-colors font-medium">
-              Contact
+              {t.nav.contact}
             </Link>
+            
+            {/* Language Switcher */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-charcoal hover:text-forest transition-colors border border-sand rounded-lg hover:border-forest"
+              aria-label="Switch language"
+            >
+              <Globe size={16} />
+              <span>{language === 'en' ? 'ไทย' : 'EN'}</span>
+            </button>
+
             <Button variant="primary" size="md" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-              Get a Quote
+              {t.nav.getQuote}
             </Button>
           </div>
 
@@ -54,22 +71,32 @@ export default function Header() {
               className="text-base text-charcoal hover:text-forest transition-colors font-medium py-3 px-2 hover:bg-sand/20 rounded-lg"
               onClick={() => setIsMenuOpen(false)}
             >
-              Packages
+              {t.nav.packages}
             </Link>
             <Link 
               href="#deliverables" 
               className="text-base text-charcoal hover:text-forest transition-colors font-medium py-3 px-2 hover:bg-sand/20 rounded-lg"
               onClick={() => setIsMenuOpen(false)}
             >
-              Deliverables
+              {t.nav.deliverables}
             </Link>
             <Link 
               href="#contact" 
               className="text-base text-charcoal hover:text-forest transition-colors font-medium py-3 px-2 hover:bg-sand/20 rounded-lg"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact
+              {t.nav.contact}
             </Link>
+            
+            {/* Language Switcher Mobile */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center justify-center gap-2 px-4 py-3 text-base font-medium text-charcoal hover:text-forest transition-colors border border-sand rounded-lg hover:border-forest hover:bg-sand/20"
+            >
+              <Globe size={18} />
+              <span>{language === 'en' ? 'ภาษาไทย' : 'English'}</span>
+            </button>
+
             <Button 
               variant="primary" 
               size="md" 
@@ -79,7 +106,7 @@ export default function Header() {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Get a Quote
+              {t.nav.getQuote}
             </Button>
           </div>
         )}
