@@ -1,0 +1,55 @@
+'use client';
+
+import Image from 'next/image';
+import { MessageCircle, CheckCircle } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import { getWhatsAppLink } from '@/lib/constants';
+
+export default function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-start pt-16 sm:pt-20">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/assets/01_hero.png"
+          alt="Ko Pha Ngan landscape"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        {/* Mobile-optimized gradient - stronger on mobile for readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-white/60 to-white/20 sm:from-white/90 sm:via-white/40 sm:to-transparent"></div>
+      </div>
+
+      {/* Content - Mobile First */}
+      <div className="relative z-10 w-full px-6 py-12 sm:px-8 sm:py-20 md:pl-16 lg:pl-24">
+        <div className="max-w-full sm:max-w-2xl">
+          {/* Headline - Responsive sizing */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal tracking-tight text-charcoal mb-6 leading-tight">
+            Understand.<br />
+            Visualize. Unlock<br />
+            Your Land's Potential.
+          </h1>
+          
+          {/* Subheadline - Perfect mobile sizing */}
+          <p className="text-base sm:text-lg md:text-xl text-charcoal/80 mb-8 leading-relaxed max-w-md sm:max-w-xl">
+            Expert land visualizations, assessments,
+            and preparation on Koh Phangan
+          </p>
+
+          {/* CTA Button - Full width on mobile */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button 
+              variant="primary" 
+              size="lg"
+              className="w-full sm:w-auto"
+              onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Get Your Land Report
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
