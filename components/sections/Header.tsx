@@ -37,20 +37,21 @@ export default function Header() {
             <Link href="#contact" className="text-sm lg:text-base text-charcoal hover:text-forest transition-colors font-medium">
               {t.nav.contact}
             </Link>
-            
+           
+
+            <Button variant="primary" size="md" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+              {t.nav.getQuote}
+            </Button>
+             
             {/* Language Switcher */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-charcoal hover:text-forest transition-colors border border-sand rounded-lg hover:border-forest"
+              className="flex items-center gap-2 px-3 py-2 text-sm bg-forest font-medium text-white hover:text-forest transition-colors border border-sand rounded-lg hover:border-forest"
               aria-label="Switch language"
             >
               <Globe size={16} />
               <span>{language === 'en' ? 'ไทย' : 'EN'}</span>
             </button>
-
-            <Button variant="primary" size="md" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-              {t.nav.getQuote}
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}

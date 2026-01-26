@@ -25,7 +25,7 @@ export default function Hero() {
       <div className="relative z-10 w-full px-6 py-12 sm:px-8 sm:py-20 md:pl-16 mt-60 lg:pl-60">
         <div className="max-w-full sm:max-w-2xl">
           {/* Headline - Responsive sizing */}
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif mt-60font-normal tracking-tight text-charcoal mb-6 leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif mt-60 font-normal tracking-tight text-charcoal mb-6 leading-tight">
             Understand.<br />
             Visualize. Unlock<br />
             Your Land's Potential.
