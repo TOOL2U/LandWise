@@ -4,56 +4,40 @@ import Image from 'next/image';
 import { Check, TrendingUp } from 'lucide-react';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-
-const packages = [
-  {
-    id: 'snapshot',
-    name: 'LAND SNAPSHOT',
-    tagline: 'See your land clearly.',
-    image: '/assets/package 1.png',
-    price: '15,000–25,000 THB',
-    features: [
-      'Drone 2D map',
-      '3D terrain model',
-      'Photorealistic concept images',
-      'Short cinematic video',
-    ],
-    popular: false,
-  },
-  {
-    id: 'visibility',
-    name: 'LAND VISIBILITY REPORT',
-    tagline: 'Decide with confidence.',
-    image: '/assets/package 2.png',
-    price: '30,000–60,000 THB',
-    features: [
-      'Everything in Package 1',
-      'Visibility analysis (views, sun, access)',
-      'Buildability assessment',
-      'Legal/zoning summary',
-      'Risk flags + recommendations',
-      'Branded PDF report',
-    ],
-    popular: true,
-  },
-  {
-    id: 'ready',
-    name: 'LAND READY PACKAGE',
-    tagline: 'Plan it, clear it.',
-    image: '/assets/package 3.png',
-    price: 'Project-based',
-    features: [
-      'Everything in Package 2',
-      'Land clearing (robot mower)',
-      'Full land survey (outsourced if required)',
-      'Before/after visuals',
-      'Updated 3D model after clearing',
-    ],
-    popular: false,
-  },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Packages() {
+  const { t } = useLanguage();
+
+  const packages = [
+    {
+      id: 'snapshot',
+      name: t.packages.snapshot.name,
+      tagline: t.packages.snapshot.tagline,
+      image: '/assets/package 1.png',
+      price: t.packages.snapshot.price,
+      features: t.packages.snapshot.features,
+      popular: false,
+    },
+    {
+      id: 'visibility',
+      name: t.packages.visibility.name,
+      tagline: t.packages.visibility.tagline,
+      image: '/assets/package 2.png',
+      price: t.packages.visibility.price,
+      features: t.packages.visibility.features,
+      popular: true,
+    },
+    {
+      id: 'ready',
+      name: t.packages.ready.name,
+      tagline: t.packages.ready.tagline,
+      image: '/assets/package 3.png',
+      price: t.packages.ready.price,
+      features: t.packages.ready.features,
+      popular: false,
+    },
+  ];
   return (
     <section id="packages" className="section-padding relative bg-sand/20">
       {/* Background Texture */}
@@ -71,12 +55,12 @@ export default function Packages() {
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <p className="text-sky font-semibold mb-2 tracking-wide uppercase text-sm">Our Services</p>
+          <p className="text-sky font-semibold mb-2 tracking-wide uppercase text-sm">{t.packages.sectionTitle}</p>
           <h2 className="heading-lg text-forest mb-4">
-            Tailored Land Assessment
+            {t.packages.heading}
           </h2>
           <h3 className="heading-md text-charcoal/70">
-            and Development Packages
+            {t.packages.subheading}
           </h3>
         </div>
 
@@ -88,7 +72,7 @@ export default function Packages() {
               {pkg.popular && (
                 <div className="bg-sky text-white px-4 py-2 text-sm font-semibold text-center">
                   <TrendingUp className="inline mr-1" size={16} />
-                  Most Popular
+                  {t.packages.mostPopular}
                 </div>
               )}
 
@@ -132,7 +116,7 @@ export default function Packages() {
                   className="w-full"
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  See Package
+                  {t.packages.seePackage}
                 </Button>
               </div>
             </Card>

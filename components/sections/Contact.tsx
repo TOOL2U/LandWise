@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { MessageCircle, Send, Clock } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { getWhatsAppLink } from '@/lib/constants';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
@@ -36,10 +38,10 @@ export default function Contact() {
           {/* Section Header */}
           <div className="text-center mb-12">
             <h2 className="heading-lg text-forest mb-4">
-              Get Your Land Report
+              {t.contact.heading}
             </h2>
             <p className="text-xl text-charcoal/70">
-              Tell us about your land and we'll provide a custom quote within 24 hours.
+              {t.contact.description}
             </p>
           </div>
 
@@ -49,7 +51,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-forest mb-2">
-                    Your Name
+                    {t.contact.form.name}
                   </label>
                   <input
                     type="text"
@@ -65,7 +67,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="contact" className="block text-sm font-semibold text-forest mb-2">
-                    WhatsApp / Email
+                    {t.contact.form.email}
                   </label>
                   <input
                     type="text"
@@ -81,7 +83,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="location" className="block text-sm font-semibold text-forest mb-2">
-                    Land Location
+                    {t.contact.form.landLocation}
                   </label>
                   <input
                     type="text"
@@ -97,7 +99,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-semibold text-forest mb-2">
-                    Tell us about your project
+                    {t.contact.form.projectDetails}
                   </label>
                   <textarea
                     id="message"
@@ -112,7 +114,7 @@ export default function Contact() {
 
                 <Button type="submit" variant="primary" className="w-full" size="lg">
                   <Send className="mr-2" size={20} />
-                  Request a Quote
+                  {t.contact.form.submit}
                 </Button>
               </form>
             </div>

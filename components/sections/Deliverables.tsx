@@ -2,41 +2,43 @@
 
 import Image from 'next/image';
 import { Map, Box, Image as ImageIcon, Video, FileText, MapPin } from 'lucide-react';
-
-const deliverables = [
-  {
-    icon: Map,
-    title: '2D Map',
-    description: 'High-resolution orthomosaic map of your entire property',
-  },
-  {
-    icon: Box,
-    title: '3D Terrain',
-    description: 'Interactive 3D model showing elevation and topography',
-  },
-  {
-    icon: ImageIcon,
-    title: 'Concept Visuals',
-    description: 'Photorealistic rendered images of development potential',
-  },
-  {
-    icon: Video,
-    title: 'Video Fly-through',
-    description: 'Cinematic aerial footage showcasing your land',
-  },
-  {
-    icon: FileText,
-    title: 'PDF Report',
-    description: 'Comprehensive analysis report (Package 2+)',
-  },
-  {
-    icon: MapPin,
-    title: 'Survey',
-    description: 'Professional land survey (Package 3)',
-  },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Deliverables() {
+  const { t } = useLanguage();
+
+  const deliverables = [
+    {
+      icon: Map,
+      title: t.deliverables.items[0].title,
+      description: t.deliverables.items[0].description,
+    },
+    {
+      icon: Box,
+      title: t.deliverables.items[1].title,
+      description: t.deliverables.items[1].description,
+    },
+    {
+      icon: ImageIcon,
+      title: t.deliverables.items[2].title,
+      description: t.deliverables.items[2].description,
+    },
+    {
+      icon: Video,
+      title: t.deliverables.items[3].title,
+      description: t.deliverables.items[3].description,
+    },
+    {
+      icon: FileText,
+      title: t.deliverables.items[4].title,
+      description: t.deliverables.items[4].description,
+    },
+    {
+      icon: MapPin,
+      title: t.deliverables.items[5].title,
+      description: t.deliverables.items[5].description,
+    },
+  ];
   return (
     <section id="deliverables" className="section-padding relative bg-gradient-to-br from-sand/20 to-white">
       {/* Background Image */}
@@ -53,10 +55,10 @@ export default function Deliverables() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="heading-lg text-forest mb-4">
-            What You Receive
+            {t.deliverables.heading} {t.deliverables.subheading}
           </h2>
           <p className="text-xl text-charcoal/70 max-w-2xl mx-auto">
-            Professional deliverables designed to help you make informed decisions about your land.
+            {t.deliverables.sectionTitle}
           </p>
         </div>
 

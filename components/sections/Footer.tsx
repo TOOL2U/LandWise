@@ -1,9 +1,11 @@
 'use client';
 
 import { MapPin } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="bg-forest text-white">
@@ -18,27 +20,27 @@ export default function Footer() {
               <span className="text-xl font-bold tracking-tight">LANDWISE</span>
             </div>
             <p className="text-sand/80 text-sm">
-              Land intelligence for confident decisions on Ko Pha Ngan.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Services</h4>
+            <h4 className="font-semibold mb-4">{t.footer.services}</h4>
             <ul className="space-y-2 text-sm text-sand/80">
               <li>
                 <a href="#packages" className="hover:text-white transition-colors">
-                  Land Snapshot
+                  {t.packages.snapshot.name}
                 </a>
               </li>
               <li>
                 <a href="#packages" className="hover:text-white transition-colors">
-                  Visibility Report
+                  {t.packages.visibility.name}
                 </a>
               </li>
               <li>
                 <a href="#packages" className="hover:text-white transition-colors">
-                  Land Ready Package
+                  {t.packages.ready.name}
                 </a>
               </li>
             </ul>
@@ -46,7 +48,7 @@ export default function Footer() {
 
           {/* Location */}
           <div>
-            <h4 className="font-semibold mb-4">Location</h4>
+            <h4 className="font-semibold mb-4">{t.footer.location}</h4>
             <div className="flex items-start gap-2 text-sm text-sand/80">
               <MapPin size={18} className="flex-shrink-0 mt-1" />
               <div>
@@ -60,8 +62,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-sand/20 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-sand/60">
-            <p>© {currentYear} LandWise. All rights reserved.</p>
-            <p>Built for Ko Pha Ngan land owners and developers.</p>
+            <p>© {currentYear} LandWise. {t.footer.rights}</p>
+            <p>{t.footer.description}</p>
           </div>
         </div>
       </div>

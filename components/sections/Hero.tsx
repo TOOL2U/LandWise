@@ -4,8 +4,10 @@ import Image from 'next/image';
 import { MessageCircle, CheckCircle } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { getWhatsAppLink } from '@/lib/constants';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Hero() {
+  const { t } = useLanguage();
   return (
     <section className="relative min-h-screen flex items-center justify-start pt-16 sm:pt-20">
       {/* Background Image */}
@@ -26,15 +28,13 @@ export default function Hero() {
         <div className="max-w-full sm:max-w-2xl">
           {/* Headline - Responsive sizing */}
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif mt-60 font-normal tracking-tight text-charcoal mb-6 leading-tight">
-            Understand.<br />
-            Visualize. Unlock<br />
-            Your Land's Potential.
+            {t.hero.title}<br />
+            {t.hero.subtitle}
           </h1>
           
           {/* Subheadline - Perfect mobile sizing */}
           <p className="text-base sm:text-lg md:text-xl text-charcoal/80 mb-8 leading-relaxed max-w-md sm:max-w-xl">
-            Expert land visualizations, assessments,
-            and preparation on Koh Phangan
+            {t.hero.description}
           </p>
 
           {/* CTA Button - Full width on mobile */}
@@ -45,7 +45,7 @@ export default function Hero() {
               className="w-full sm:w-auto"
               onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Get Your Land Report
+              {t.hero.cta}
             </Button>
           </div>
         </div>
