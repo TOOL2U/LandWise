@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import "./globals.css";
 
 const inter = Inter({ 
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${dmSerif.variable} font-sans`}>
         <LanguageProvider>
           {children}
+          <WhatsAppButton />
         </LanguageProvider>
       </body>
     </html>

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -14,8 +15,13 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-sand/20 rounded-md flex items-center justify-center">
-                <div className="w-5 h-5 border-2 border-sand rounded-sm transform rotate-45"></div>
+              <div className="relative w-10 h-10">
+                <Image
+                  src="/assets/logo chatgpt.png"
+                  alt="LandWise Logo"
+                  fill
+                  className="object-contain brightness-0 invert"
+                />
               </div>
               <span className="text-xl font-bold tracking-tight">LANDWISE</span>
             </div>

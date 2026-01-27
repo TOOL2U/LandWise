@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, Globe } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -20,8 +21,14 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo - Responsive sizing */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-forest rounded-md flex items-center justify-center">
-              <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-sand rounded-sm transform rotate-45"></div>
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+              <Image
+                src="/assets/logo chatgpt.png"
+                alt="LandWise Logo"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
             <span className="text-lg sm:text-xl md:text-2xl font-semibold text-forest tracking-tight">LANDWISE</span>
           </Link>

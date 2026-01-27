@@ -7,17 +7,16 @@ export const translations = {
       getQuote: 'Get a Quote',
     },
     hero: {
-      title: 'Smart Land Analysis',
-      subtitle: 'for Koh Phangan',
-      description: 'Make better land decisions with precision drone mapping, 3D terrain modeling, and actionable insights—all delivered fast.',
-      cta: 'View Packages',
+      title: 'Understand.',
+      subtitle: 'Visualize. Unlock Your Land\'s Potential.',
+      description: 'Expert land visualizations, assessments, and preparation on Koh Phangan',
+      cta: 'Get Your Land Report',
       scrollDown: 'Scroll to explore',
     },
     packages: {
       sectionTitle: 'Our Services',
       heading: 'Tailored Land Assessment',
       subheading: 'and Development Packages',
-      mostPopular: 'Most Popular',
       seePackage: 'See Package',
       snapshot: {
         name: 'LAND SNAPSHOT',
