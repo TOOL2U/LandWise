@@ -20,8 +20,8 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo - Responsive sizing */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20">
               <Image
                 src="/assets/logo chatgpt.png"
                 alt="LandWise Logo"
@@ -30,7 +30,7 @@ export default function Header() {
                 priority
               />
             </div>
-            <span className="text-lg sm:text-xl md:text-2xl font-semibold text-forest tracking-tight">LANDWISE</span>
+            <span className="text-xl sm:text-2xl md:text-3xl font-semibold text-forest tracking-tight">LANDWISE</span>
           </Link>
 
           {/* Desktop Navigation */}

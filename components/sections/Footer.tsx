@@ -14,8 +14,8 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="relative w-10 h-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16">
                 <Image
                   src="/assets/logo chatgpt.png"
                   alt="LandWise Logo"
@@ -23,7 +23,7 @@ export default function Footer() {
                   className="object-contain brightness-0 invert"
                 />
               </div>
-              <span className="text-xl font-bold tracking-tight">LANDWISE</span>
+              <span className="text-2xl sm:text-3xl font-bold tracking-tight">LANDWISE</span>
             </div>
             <p className="text-sand/80 text-sm">
               {t.footer.description}

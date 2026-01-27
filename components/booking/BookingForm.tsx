@@ -6,7 +6,10 @@ import { Package } from '@/types/booking';
 import Button from '@/components/ui/Button';
 import { Calendar, DollarSign } from 'lucide-react';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+// Only load Stripe if the publishable key is configured
+const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
+  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+  : null;
 
 interface BookingFormProps {
   selectedPackage: Package;
@@ -54,6 +57,12 @@ export default function BookingForm({ selectedPackage, isEarlyAccess, onClose }:
       const data = await response.json();
 
       if (!response.ok) {
+        // Show user-friendly error message
+        if (response.status === 503) {
+          alert('Booking system is not yet configured. Please contact us directly via WhatsApp for bookings.');
+        } else {
+          alert(data.error || 'Failed to create checkout session');
+        }
         throw new Error(data.error || 'Failed to create checkout session');
       }
 

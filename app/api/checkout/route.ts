@@ -3,12 +3,26 @@ import Stripe from 'stripe';
 import { getPackageById } from '@/lib/packages';
 import { isEarlyAccessAvailable, createBooking } from '@/lib/bookings';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-12-15.clover',
-});
+// Initialize Stripe only if API key is configured
+const stripe = process.env.STRIPE_SECRET_KEY 
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-12-15.clover',
+    })
+  : null;
 
 export async function POST(req: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!stripe) {
+      return NextResponse.json(
+        { 
+          error: 'Payment system not configured',
+          message: 'Stripe API keys are missing. Please configure environment variables to enable booking.',
+        },
+        { status: 503 }
+      );
+    }
+
     const body = await req.json();
     const { 
       packageId, 
