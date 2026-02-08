@@ -45,6 +45,18 @@ export default function Portfolio() {
                 caption: "Combined terrain analysis and site modelling used to evaluate development potential."
             },
             {
+                src: "/assets/portfolio/Drainage New.png",
+                alt: "Drainage Flow Analysis",
+                title: "Drainage Flow Analysis – Surface Water Movement",
+                caption: "Surface water movement analysis derived from orthomosaic and terrain interpretation showing water flow patterns and drainage recommendations."
+            },
+            {
+                src: "/assets/portfolio/Topo.png",
+                alt: "Site Location & Topographic Survey",
+                title: "Site Location & Land Context Analysis",
+                caption: "Comprehensive site location mapping and high-precision topographic boundary survey for accurate design, engineering, and construction planning."
+            },
+            {
                 src: "/assets/portfolio/slide_9.png",
                 alt: "Detailed Analysis View",
                 title: "Site Analysis Detail",
@@ -69,20 +81,14 @@ export default function Portfolio() {
                 caption: "Precise topographic data mapped for accurate engineering."
             },
             {
-                src: "/assets/portfolio/slide_16.png",
-                alt: "Final Assessment",
-                title: "Comprehensive Assessment",
-                caption: "Complete site assessment integrating all data points."
-            },
-            {
                 src: "/assets/portfolio/18.png",
-                alt: "Final Assessment",
-                title: "Comprehensive Assessment",
-                caption: "Complete site assessment integrating all data points."
+                alt: "Project Documentation",
+                title: "Project Documentation",
+                caption: "Complete project documentation and analysis deliverables."
             },
             {
                 src: "/assets/portfolio/11.png",
-                alt: "Site Analysis",
+                alt: "Advanced Analysis",
                 title: "Advanced Site Analysis",
                 caption: "Detailed analysis of site characteristics and development potential."
             },
@@ -110,8 +116,14 @@ export default function Portfolio() {
         setShuffledSlides(shuffleArray(projectData.slides));
     }, []);
 
+    // Reshuffle when slideshow finishes a complete cycle
     const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % shuffledSlides.length);
+        const nextIndex = (currentSlide + 1) % shuffledSlides.length;
+        if (nextIndex === 0 && shuffledSlides.length > 0) {
+            // Reshuffle when we complete a cycle
+            setShuffledSlides(shuffleArray(projectData.slides));
+        }
+        setCurrentSlide(nextIndex);
     };
 
     const prevSlide = () => {
@@ -123,7 +135,7 @@ export default function Portfolio() {
         if (isPlaying && shuffledSlides.length > 0) {
             interval = setInterval(() => {
                 nextSlide();
-            }, 5000); // Change slide every 5 seconds
+            }, 3000); // Change slide every 3 seconds
         }
         return () => {
             if (interval) {
@@ -277,7 +289,7 @@ export default function Portfolio() {
                     className="absolute bottom-0 left-0 h-1 bg-sand z-40"
                     initial={{ width: "0%" }}
                     animate={{ width: "100%" }}
-                    transition={{ duration: 8, ease: "linear" }}
+                    transition={{ duration: 3, ease: "linear" }}
                 />
             )}
 

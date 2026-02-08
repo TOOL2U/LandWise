@@ -28,10 +28,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('language', lang);
   };
 
-  const value = {
+  const value: LanguageContextType = {
     language,
     setLanguage,
-    t: translations[language],
+    t: translations[language] as TranslationKey,
   };
 
   return (

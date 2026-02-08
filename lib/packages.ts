@@ -29,7 +29,7 @@ export const PACKAGES: Package[] = [
       'Legal overview (outsourced)',
       'Full branded PDF report',
     ],
-    popular: false,
+    popular: true,
   },
   {
     id: 'ready',

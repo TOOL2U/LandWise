@@ -147,7 +147,7 @@ export default function Header() {
                 </motion.div>
               ))}
 
-              {/* CTA Button with gradient */}
+              {/* CTA Button */}
               <motion.div
                 custom={3}
                 initial="hidden"
@@ -161,16 +161,10 @@ export default function Header() {
                   <Button
                     variant="primary"
                     size="md"
-                    className="bg-gradient-to-r from-forest to-terracotta hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
+                    className="bg-forest hover:bg-forest/90 hover:shadow-xl transition-all duration-300"
                     onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                   >
-                    <span className="relative z-10">{t.nav.getQuote}</span>
-                    <motion.div
-                      className="absolute inset-0 bg-white/20"
-                      initial={{ x: '-100%' }}
-                      whileHover={{ x: '100%' }}
-                      transition={{ duration: 0.5 }}
-                    />
+                    {t.nav.getQuote}
                   </Button>
                 </motion.div>
               </motion.div>

@@ -50,7 +50,7 @@ export default function Deliverables() {
   ];
 
   return (
-    <section id="deliverables" ref={containerRef} className="section-padding relative bg-off-white overflow-hidden">
+    <section id="deliverables" ref={containerRef} className="section-padding py-16 sm:py-20 md:py-24 relative bg-off-white overflow-hidden">
 
       {/* --- Technical Grid Background --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -83,13 +83,19 @@ export default function Deliverables() {
       <div className="container-custom relative z-10">
 
         {/* --- Section Header --- */}
-        <div className="text-center mb-20 max-w-4xl mx-auto">
+        <div className="text-center mb-16 max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-forest/5 rounded-full border border-forest/10 mb-3">
+              <span className="text-xs font-medium tracking-wider text-forest/60 uppercase">
+                Example Deliverables
+              </span>
+            </div>
+            
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-forest/5 rounded-full border border-forest/10 mb-6">
               <Scan className="w-4 h-4 text-forest" />
               <span className="text-xs font-bold tracking-widest text-forest uppercase">

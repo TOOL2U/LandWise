@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { MessageCircle, Send, Clock, CheckCircle, Sparkles, ArrowRight } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 import Button from '@/components/ui/Button';
+import MapLocationPicker from '@/components/ui/MapLocationPicker';
 import { getWhatsAppLink } from '@/lib/constants';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -12,17 +13,68 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
-    location: '',
     message: '',
   });
+  const [location, setLocation] = useState<{ lat: number; lng: number; address?: string; mapsLink?: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation
+    if (!location?.lat || !location?.lng) {
+      setErrorMessage('Please select a location on the map');
+      setSubmitStatus('error');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
 
-    // Create WhatsApp message with form data
-    const whatsappMessage = `Hi, I'm ${formData.name}.\n\nContact: ${formData.contact}\nLand Location: ${formData.location}\n\nMessage: ${formData.message}`;
+    try {
+      // Submit to backend API
+      const response = await fetch('/api/submit-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          contact: formData.contact,
+          landLocation: location.address || `${location.lat}, ${location.lng}`,
+          latitude: location.lat,
+          longitude: location.lng,
+          mapsLink: location.mapsLink,
+          message: formData.message,
+          formType: 'Contact Form'
+        })
+      });
 
-    window.open(getWhatsAppLink(whatsappMessage), '_blank');
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        // Reset form
+        setFormData({ name: '', contact: '', message: '' });
+        setLocation(null);
+        
+        // Also open WhatsApp as backup/additional channel
+        setTimeout(() => {
+          const whatsappMessage = `Hi, I'm ${formData.name}.\n\nContact: ${formData.contact}\nLand Location: ${location.mapsLink || location.address}\n\nMessage: ${formData.message}`;
+          window.open(getWhatsAppLink(whatsappMessage), '_blank');
+        }, 1000);
+      } else {
+        setSubmitStatus('error');
+        setErrorMessage(data.error || 'Submission failed. Please try again.');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setErrorMessage('Network error. Please check your connection and try again.');
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -81,16 +133,39 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16 max-w-3xl mx-auto"
+            className="text-center mb-12 max-w-3xl mx-auto"
           >
-            <p className="text-terracotta font-bold mb-3 tracking-widest uppercase text-xs sm:text-sm">
-              GET IN TOUCH
-            </p>
-            <h2 className="heading-lg text-forest mb-6">
-              {t.contact.heading}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-forest mb-8">
+              Ready to Understand Your Land?
             </h2>
-            <p className="text-slate-grey text-lg leading-relaxed">
-              {t.contact.description}
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="w-full sm:w-auto bg-forest hover:bg-forest/90 shadow-xl hover:shadow-2xl transition-all duration-300"
+                  onClick={() => document.getElementById('free-quick-check')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Free Land Quick Check
+                </Button>
+              </motion.div>
+              
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  className="w-full sm:w-auto border-2 border-forest text-forest hover:bg-forest/10 shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  View Packages
+                </Button>
+              </motion.div>
+            </div>
+            
+            <p className="text-slate-grey text-base leading-relaxed">
+              Or reach out directly using the form below
             </p>
           </motion.div>
 
@@ -122,6 +197,7 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         required
+                        autoComplete="name"
                         className="w-full px-4 py-3 bg-white rounded-lg border border-sand focus:border-forest focus:ring-2 focus:ring-forest/10 focus:outline-none transition-all placeholder:text-slate-grey/30 text-slate-grey"
                         placeholder="John Smith"
                       />
@@ -132,30 +208,27 @@ export default function Contact() {
                         {t.contact.form.email} *
                       </label>
                       <input
-                        type="text"
+                        type="tel"
                         id="contact"
                         name="contact"
                         value={formData.contact}
                         onChange={handleChange}
                         required
+                        autoComplete="tel"
                         className="w-full px-4 py-3 bg-white rounded-lg border border-sand focus:border-forest focus:ring-2 focus:ring-forest/10 focus:outline-none transition-all placeholder:text-slate-grey/30 text-slate-grey"
-                        placeholder="john@example.com or +66 81 234 5678"
+                        placeholder="+66 81 234 5678"
                       />
                     </motion.div>
 
                     <motion.div variants={formFieldVariants}>
-                      <label htmlFor="location" className="block text-sm font-bold text-forest mb-2">
+                      <label className="block text-sm font-bold text-forest mb-2">
                         {t.contact.form.landLocation} *
                       </label>
-                      <input
-                        type="text"
-                        id="location"
-                        name="location"
-                        value={formData.location}
-                        onChange={handleChange}
+                      <MapLocationPicker
+                        value={location || undefined}
+                        onChange={(loc) => setLocation(loc)}
+                        placeholder="Select land location on map"
                         required
-                        className="w-full px-4 py-3 bg-white rounded-lg border border-sand focus:border-forest focus:ring-2 focus:ring-forest/10 focus:outline-none transition-all placeholder:text-slate-grey/30 text-slate-grey"
-                        placeholder="e.g., Thong Nai Pan, Ko Pha Ngan"
                       />
                     </motion.div>
 
@@ -178,13 +251,55 @@ export default function Contact() {
                       <Button
                         type="submit"
                         variant="primary"
-                        className="w-full group shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                        disabled={isSubmitting}
+                        className="w-full group shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         size="lg"
                       >
-                        <Send className="mr-2 group-hover:translate-x-1 transition-transform" size={20} />
-                        {t.contact.form.submit}
+                        {isSubmitting ? (
+                          <>
+                            <motion.div
+                              className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="mr-2 group-hover:translate-x-1 transition-transform" size={20} />
+                            {t.contact.form.submit}
+                          </>
+                        )}
                       </Button>
                     </motion.div>
+
+                    {/* Success Message */}
+                    {submitStatus === 'success' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-2 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800"
+                      >
+                        <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                        <p className="text-sm">Thank you. We've received your request and will contact you shortly.</p>
+                      </motion.div>
+                    )}
+
+                    {/* Error Message */}
+                    {submitStatus === 'error' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-start gap-2 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800"
+                      >
+                        <span className="text-lg">⚠️</span>
+                        <div className="text-sm">
+                          <p className="font-semibold mb-1">Submission Error</p>
+                          <p>{errorMessage}</p>
+                          <p className="mt-2 text-xs">You can also contact us directly via WhatsApp using the button below.</p>
+                        </div>
+                      </motion.div>
+                    )}
                   </motion.div>
                 </form>
               </div>

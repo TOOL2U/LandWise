@@ -14,7 +14,7 @@ export default function Hero() {
   const y = useTransform(scrollY, [0, 500], [0, 150]); // Parallax effect
 
   return (
-    <section className="relative min-h-screen flex items-center justify-start pt-16 sm:pt-20 overflow-hidden">
+    <section className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-start pt-20 sm:pt-20 pb-8 sm:pb-0 overflow-hidden">
       {/* Background Image with Parallax */}
       <motion.div
         className="absolute inset-0 z-0"
@@ -52,9 +52,9 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-forest mb-6 leading-[1.1]">
-              {t.hero.title}<br />
-              <span className="text-terracotta">{t.hero.subtitle}</span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.15] sm:leading-[1.1]">
+              <span className="text-forest drop-shadow-sm">{t.hero.title}</span><br />
+              <span className="text-terracotta drop-shadow-sm">{t.hero.subtitle}</span>
             </h1>
           </motion.div>
 
@@ -69,28 +69,34 @@ export default function Hero() {
             </p>
           </motion.div>
 
-          {/* CTA Button */}
+          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
+            className="flex flex-col sm:flex-row gap-4"
           >
-            <Button
-              variant="primary"
-              size="lg"
-              className="w-full sm:w-auto bg-gradient-to-r from-forest to-terracotta shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
-              onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <span className="relative z-10">{t.hero.cta}</span>
-              <motion.div
-                className="absolute inset-0 bg-white/20"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: '100%' }}
-                transition={{ duration: 0.5 }}
-              />
-            </Button>
+            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-full sm:w-auto bg-forest hover:bg-forest/90 shadow-xl hover:shadow-2xl transition-all duration-300"
+                onClick={() => document.getElementById('free-quick-check')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Get a Free Land Quick Check
+              </Button>
+            </motion.div>
+            
+            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="secondary"
+                size="lg"
+                className="w-full sm:w-auto border-2 border-forest text-forest hover:bg-forest/10 shadow-lg hover:shadow-xl transition-all duration-300"
+                onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                {t.hero.cta}
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </div>
