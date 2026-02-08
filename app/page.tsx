@@ -1,5 +1,6 @@
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
+import Portfolio from "@/components/sections/Portfolio";
 import Packages from "@/components/sections/Packages";
 import Deliverables from "@/components/sections/Deliverables";
 import Contact from "@/components/sections/Contact";
@@ -11,6 +12,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Packages />
+      <Portfolio />
       <Deliverables />
       <Contact />
       <Footer />

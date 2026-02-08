@@ -17,6 +17,7 @@ export const translations = {
       sectionTitle: 'Our Services',
       heading: 'Tailored Land Assessment',
       subheading: 'and Development Packages',
+      mostPopular: 'Most Popular',
       seePackage: 'See Package',
       snapshot: {
         name: 'LAND SNAPSHOT',
@@ -48,8 +49,8 @@ export const translations = {
         price: 'Project-based',
         features: [
           'Everything in Package 2',
-          'Land clearing (robot mower)',
-          'Full land survey (outsourced if required)',
+          'Land clearing',
+          'Full land survey',
           'Before/after visuals',
           'Updated 3D model after clearing',
         ],
@@ -160,8 +161,8 @@ export const translations = {
         price: 'ราคาตามโครงการ',
         features: [
           'ทุกอย่างในแพ็คเกจ 2',
-          'การเคลียร์ที่ดิน (หุ่นยนต์ตัดหญ้า)',
-          'การสำรวจที่ดินแบบเต็มรูปแบบ (จ้างเหมาหากจำเป็น)',
+          'การเคลียร์ที่ดิน',
+          'การสำรวจที่ดินแบบเต็มรูปแบบ',
           'ภาพก่อน/หลัง',
           'โมเดล 3D ที่อัปเดตหลังการเคลียร์',
         ],

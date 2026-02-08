@@ -9,15 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'forest': '#2F4F4F',
-        'sand': '#E6DFD5',
-        'charcoal': '#1E1E1E',
-        'sky': '#6FA8DC',
-        'clay': '#C97C5D',
+        'forest': '#1F3D2B', // Deep Forest Green
+        'sand': '#E6E0D4',   // Soft Sand
+        'charcoal': '#4A4A4A', // Slate Grey (Mapping charcoal to slate grey for backward compatibility)
+        'slate-grey': '#4A4A4A', // Explicit Slate Grey
+        'off-white': '#F4F4F2', // Off White
+        'clay': '#C46A3A',   // Terracotta
+        'terracotta': '#C46A3A', // Explicit Terracotta
+        'sky': '#6FA8DC', // Keeping existing sky blue if needed, or remove if strictly following brand kit? Brand kit says "Drainage: Blue", so keep a blue.
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['DM Serif Display', 'serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-dm-serif)', 'serif'], // Keeping DM Serif for now as secondary or remove? Brand Kit says Headings: Montserrat.
+        // Let's keep serif for specific "serif" usages but default headings to Montserrat
+        montserrat: ['var(--font-montserrat)', 'sans-serif'],
       },
     },
   },

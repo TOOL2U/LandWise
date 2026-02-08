@@ -19,6 +19,10 @@ export interface Booking {
   customerEmail: string;
   customerPhone: string;
   landLocation: string;
+  landCoordinates?: {
+    lat: number;
+    lng: number;
+  };
   projectDetails: string;
   bookingDate: string;
   pricePaid: number;
@@ -26,6 +30,7 @@ export interface Booking {
   paymentStatus: 'pending' | 'paid' | 'failed' | 'refunded';
   stripePaymentId?: string;
   stripeSessionId?: string;
+  documentUrls?: string[];
   createdAt: Date;
   updatedAt: Date;
 }

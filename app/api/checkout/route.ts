@@ -4,10 +4,10 @@ import { getPackageById } from '@/lib/packages';
 import { isEarlyAccessAvailable, createBooking } from '@/lib/bookings';
 
 // Initialize Stripe only if API key is configured
-const stripe = process.env.STRIPE_SECRET_KEY 
+const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: '2025-12-15.clover',
-    })
+    apiVersion: '2025-12-15.clover',
+  })
   : null;
 
 export async function POST(req: NextRequest) {
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     // Check if Stripe is configured
     if (!stripe) {
       return NextResponse.json(
-        { 
+        {
           error: 'Payment system not configured',
           message: 'Stripe API keys are missing. Please configure environment variables to enable booking.',
         },
@@ -24,14 +24,16 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { 
-      packageId, 
-      customerName, 
-      customerEmail, 
+    const {
+      packageId,
+      customerName,
+      customerEmail,
       customerPhone,
       landLocation,
+      landCoordinates,
       projectDetails,
       bookingDate,
+      documentUrls,
     } = body;
 
     // Validate required fields
@@ -63,11 +65,13 @@ export async function POST(req: NextRequest) {
       customerEmail,
       customerPhone: customerPhone || '',
       landLocation: landLocation || '',
+      landCoordinates,
       projectDetails: projectDetails || '',
       bookingDate,
       pricePaid: price,
       isEarlyAccess: earlyAccess,
       paymentStatus: 'pending',
+      documentUrls: documentUrls || [],
     });
 
     // Create Stripe checkout session
@@ -99,7 +103,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       sessionId: session.id,
       url: session.url,
       bookingId,

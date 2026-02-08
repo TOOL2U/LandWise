@@ -1,16 +1,49 @@
 import type { Metadata } from "next";
-import { Inter, DM_Serif_Display } from "next/font/google";
+import localFont from "next/font/local";
+import { DM_Serif_Display } from "next/font/google";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import "./globals.css";
 
-const inter = Inter({ 
-  subsets: ["latin"],
-  weight: ['400', '500', '600'],
-  variable: '--font-inter',
+const inter = localFont({
+  src: "../public/fonts/Inter-VariableFont_opsz,wght.ttf",
+  variable: "--font-inter",
+  display: "swap",
 });
 
-const dmSerif = DM_Serif_Display({ 
+const montserrat = localFont({
+  src: [
+    {
+      path: "../public/fonts/Montserrat-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Montserrat-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Montserrat-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Montserrat-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Montserrat-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
+const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
   weight: ['400'],
   variable: '--font-dm-serif',
@@ -29,10 +62,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
-      </head>
-      <body className={`${inter.variable} ${dmSerif.variable} font-sans`}>
+      <body className={`${inter.variable} ${montserrat.variable} ${dmSerif.variable} font-sans`}>
         <LanguageProvider>
           {children}
           <WhatsAppButton />

@@ -1,0 +1,92 @@
+-------------------------------------------------
+                LANDWISE
+         Terrain Intelligence
+-------------------------------------------------
+
+COLOUR PALETTE
+
+[ Deep Forest Green ]   [ Off White ]
+#1F3D2B                 #F4F4F2
+
+[ Terracotta ]          [ Slate Grey ]
+#C46A3A                 #4A4A4A
+
+[ Soft Sand ]
+#E6E0D4
+
+-------------------------------------------------
+
+TYPOGRAPHY
+
+Heading Font:
+MONTSERRAT BOLD
+Example:
+Land Visibility Report
+
+Subheading:
+MONTSERRAT SEMIBOLD
+Example:
+Drainage Analysis
+
+Body Text:
+INTER REGULAR
+Example:
+This analysis shows terrain slope, elevation, and natural drainage patterns across the site.
+
+-------------------------------------------------
+
+USAGE STYLE
+
+Headings: Deep Forest Green  
+Body Text: Slate Grey  
+Background: Off White  
+Highlights: Terracotta  
+Boxes / Dividers: Soft Sand  
+
+-------------------------------------------------
+
+ICON STYLE
+Thin line icons
+Monochrome
+Minimal
+
+-------------------------------------------------
+
+MAP STYLE RULES
+
+Contours: Soft brown or grey  
+Drainage: Blue  
+Slope: Green → Orange gradient  
+Boundaries: Dark red or black  
+
+-------------------------------------------------
+
+FOOTER STYLE
+
+LandWise | Site Analysis | 2026
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

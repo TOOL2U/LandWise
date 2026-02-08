@@ -1,6 +1,7 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || '',
@@ -15,11 +16,12 @@ const firebaseConfig = {
 const isConfigured = firebaseConfig.apiKey && firebaseConfig.projectId;
 
 // Initialize Firebase (avoid multiple initializations)
-const app = isConfigured && getApps().length === 0 
-  ? initializeApp(firebaseConfig) 
+const app = isConfigured && getApps().length === 0
+  ? initializeApp(firebaseConfig)
   : getApps()[0];
 
 export const db = isConfigured ? getFirestore(app) : null;
 export const auth = isConfigured ? getAuth(app) : null;
+export const storage = isConfigured ? getStorage(app) : null;
 export const isFirebaseConfigured = isConfigured;
 export default app;
