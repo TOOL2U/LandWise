@@ -232,7 +232,7 @@ export default function MapLocationPicker({
 
   return (
     <div className="space-y-2">
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <Button
           type="button"
           variant="outline"
@@ -243,9 +243,9 @@ export default function MapLocationPicker({
               setIsModalOpen(true);
             }
           }}
-          className="flex-1 justify-center"
+          className="flex-1 justify-center text-sm sm:text-base py-2.5 sm:py-3"
         >
-          <MapPin className="w-4 h-4 mr-2" />
+          <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
           {value?.lat && value?.lng ? 'Location Selected ✓' : placeholder}
         </Button>
         
@@ -254,9 +254,9 @@ export default function MapLocationPicker({
             type="button"
             variant="outline"
             onClick={() => setShowManualInput(true)}
-            className="whitespace-nowrap"
+            className="whitespace-nowrap text-sm sm:text-base py-2.5 sm:py-3"
           >
-            <LinkIcon className="w-4 h-4 mr-2" />
+            <LinkIcon className="w-4 h-4 mr-2 flex-shrink-0" />
             Or Paste Link
           </Button>
         )}

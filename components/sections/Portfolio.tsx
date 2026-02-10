@@ -97,6 +97,12 @@ export default function Portfolio() {
                 alt: "Development Study",
                 title: "Development Planning Study",
                 caption: "Comprehensive development planning and feasibility assessment."
+            },
+            {
+                src: "/assets/portfolio/Haad Yao Project.png",
+                alt: "Drainage Analysis - Haad Yao Project",
+                title: "Drainage Analysis – Haad Yao Project",
+                caption: "Detailed drainage analysis and surface water assessment for the Haad Yao development project."
             }
         ]
     };

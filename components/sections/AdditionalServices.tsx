@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Mountain, TrendingUp, Droplets, TreePine, Compass } from 'lucide-react';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
+import MapLocationPicker from '@/components/ui/MapLocationPicker';
 
 interface Service {
   id: string;
@@ -23,13 +24,23 @@ const ServiceQuoteModal = ({ isOpen, onClose, selectedService }: ServiceQuoteMod
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
-    landLocation: '',
     landSize: '',
-    service: selectedService,
     message: ''
   });
+  const [location, setLocation] = useState<{ lat: number; lng: number; address?: string; mapsLink?: string } | null>(null);
+  const [skipLocation, setSkipLocation] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Reset form when a different service is selected
+  useEffect(() => {
+    if (isOpen) {
+      setFormData({ name: '', contact: '', landSize: '', message: '' });
+      setLocation(null);
+      setSkipLocation(false);
+      setIsSubmitted(false);
+    }
+  }, [isOpen, selectedService]);
 
   if (!isOpen) return null;
 
@@ -45,8 +56,11 @@ const ServiceQuoteModal = ({ isOpen, onClose, selectedService }: ServiceQuoteMod
         body: JSON.stringify({
           name: formData.name,
           contact: formData.contact,
-          landLocation: formData.landLocation,
-          service: formData.service + (formData.landSize ? ` (${formData.landSize})` : ''),
+          landLocation: location ? (location.address || `${location.lat}, ${location.lng}`) : 'Not provided',
+          latitude: location?.lat || null,
+          longitude: location?.lng || null,
+          mapsLink: location?.mapsLink || null,
+          service: selectedService + (formData.landSize ? ` (${formData.landSize})` : ''),
           message: formData.message,
           formType: 'Quote Request'
         })
@@ -56,11 +70,12 @@ const ServiceQuoteModal = ({ isOpen, onClose, selectedService }: ServiceQuoteMod
         setIsSubmitted(true);
         
         // Also send to WhatsApp
-        const message = `Hi, I'd like to request a quote for ${formData.service}.
+        const locationStr = location ? (location.mapsLink || location.address || `${location.lat}, ${location.lng}`) : 'Not provided';
+        const message = `Hi, I'd like to request a quote for ${selectedService}.
 
 Name: ${formData.name}
 Contact: ${formData.contact}
-Land Location: ${formData.landLocation}
+Land Location: ${locationStr}
 ${formData.landSize ? `Approximate Size: ${formData.landSize}` : ''}
 ${formData.message ? `Message: ${formData.message}` : ''}`;
 
@@ -77,11 +92,11 @@ ${formData.message ? `Message: ${formData.message}` : ''}`;
           setFormData({
             name: '',
             contact: '',
-            landLocation: '',
             landSize: '',
-            service: selectedService,
             message: ''
           });
+          setLocation(null);
+          setSkipLocation(false);
         }, 3000);
       }
     } catch (error) {
@@ -148,15 +163,37 @@ ${formData.message ? `Message: ${formData.message}` : ''}`;
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-grey mb-2">Land Location *</label>
-              <input
-                type="text"
-                required
-                placeholder="Paste a Google Maps link or land location"
-                value={formData.landLocation}
-                onChange={(e) => setFormData({ ...formData, landLocation: e.target.value })}
-                className="w-full px-3 py-2 border border-sand rounded-lg focus:ring-2 focus:ring-forest/20 focus:border-forest"
-              />
+              <label className="block text-sm font-medium text-slate-grey mb-2">
+                Land Location
+                <span className="text-slate-grey/50 font-normal text-xs ml-1">(optional)</span>
+              </label>
+              {!skipLocation ? (
+                <>
+                  <MapLocationPicker
+                    value={location || undefined}
+                    onChange={(loc) => setLocation(loc)}
+                    placeholder="Select land location on map"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => { setSkipLocation(true); setLocation(null); }}
+                    className="mt-2 text-xs text-slate-grey/60 hover:text-forest underline underline-offset-2 transition-colors"
+                  >
+                    I don't have a location yet — skip this step
+                  </button>
+                </>
+              ) : (
+                <div className="flex items-center gap-2 p-3 bg-sand/20 border border-sand/40 rounded-lg text-sm text-slate-grey">
+                  <span>No location selected</span>
+                  <button
+                    type="button"
+                    onClick={() => setSkipLocation(false)}
+                    className="ml-auto text-xs text-forest font-semibold hover:underline"
+                  >
+                    + Add location
+                  </button>
+                </div>
+              )}
             </div>
 
             <div>

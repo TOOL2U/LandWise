@@ -36,8 +36,10 @@ export async function POST(req: NextRequest) {
       ? `${landLocation || 'Location Selected'}\n📍 View on map: ${mapsLink}\n📌 Coordinates: ${latitude}, ${longitude}`
       : landLocation || 'Not provided';
 
-    // Prepare email content
-    const emailSubject = `New ${formType} – LandWise`;
+    // Prepare email content - include service name in subject when available
+    const emailSubject = service 
+      ? `New ${formType}: ${service} – LandWise`
+      : `New ${formType} – LandWise`;
     const emailBody = `
 New inquiry received from LandWise website:
 

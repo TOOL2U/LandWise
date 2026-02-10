@@ -17,18 +17,15 @@ export default function Contact() {
   });
   const [location, setLocation] = useState<{ lat: number; lng: number; address?: string; mapsLink?: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [skipLocation, setSkipLocation] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation
-    if (!location?.lat || !location?.lng) {
-      setErrorMessage('Please select a location on the map');
-      setSubmitStatus('error');
-      return;
-    }
+    // Location is optional — only validate if the user hasn't skipped it
+    // (no location validation block needed)
     
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -42,10 +39,10 @@ export default function Contact() {
         body: JSON.stringify({
           name: formData.name,
           contact: formData.contact,
-          landLocation: location.address || `${location.lat}, ${location.lng}`,
-          latitude: location.lat,
-          longitude: location.lng,
-          mapsLink: location.mapsLink,
+          landLocation: location ? (location.address || `${location.lat}, ${location.lng}`) : 'Not provided',
+          latitude: location?.lat || null,
+          longitude: location?.lng || null,
+          mapsLink: location?.mapsLink || null,
           message: formData.message,
           formType: 'Contact Form'
         })
@@ -58,10 +55,12 @@ export default function Contact() {
         // Reset form
         setFormData({ name: '', contact: '', message: '' });
         setLocation(null);
+        setSkipLocation(false);
         
         // Also open WhatsApp as backup/additional channel
         setTimeout(() => {
-          const whatsappMessage = `Hi, I'm ${formData.name}.\n\nContact: ${formData.contact}\nLand Location: ${location.mapsLink || location.address}\n\nMessage: ${formData.message}`;
+          const locationStr = location ? (location.mapsLink || location.address || 'Not provided') : 'Not provided';
+          const whatsappMessage = `Hi, I'm ${formData.name}.\n\nContact: ${formData.contact}\nLand Location: ${locationStr}\n\nMessage: ${formData.message}`;
           window.open(getWhatsAppLink(whatsappMessage), '_blank');
         }, 1000);
       } else {
@@ -208,28 +207,50 @@ export default function Contact() {
                         {t.contact.form.email} *
                       </label>
                       <input
-                        type="tel"
+                        type="email"
                         id="contact"
                         name="contact"
                         value={formData.contact}
                         onChange={handleChange}
                         required
-                        autoComplete="tel"
+                        autoComplete="email"
                         className="w-full px-4 py-3 bg-white rounded-lg border border-sand focus:border-forest focus:ring-2 focus:ring-forest/10 focus:outline-none transition-all placeholder:text-slate-grey/30 text-slate-grey"
-                        placeholder="+66 81 234 5678"
+                        placeholder="you@example.com"
                       />
                     </motion.div>
 
                     <motion.div variants={formFieldVariants}>
                       <label className="block text-sm font-bold text-forest mb-2">
-                        {t.contact.form.landLocation} *
+                        {t.contact.form.landLocation}
+                        <span className="text-slate-grey/50 font-normal text-xs ml-1">(optional)</span>
                       </label>
-                      <MapLocationPicker
-                        value={location || undefined}
-                        onChange={(loc) => setLocation(loc)}
-                        placeholder="Select land location on map"
-                        required
-                      />
+                      {!skipLocation ? (
+                        <>
+                          <MapLocationPicker
+                            value={location || undefined}
+                            onChange={(loc) => setLocation(loc)}
+                            placeholder="Select land location on map"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => { setSkipLocation(true); setLocation(null); }}
+                            className="mt-2 text-xs text-slate-grey/60 hover:text-forest underline underline-offset-2 transition-colors"
+                          >
+                            I don't have a location yet — skip this step
+                          </button>
+                        </>
+                      ) : (
+                        <div className="flex items-center gap-2 p-3 bg-sand/20 border border-sand/40 rounded-lg text-sm text-slate-grey">
+                          <span>No location selected</span>
+                          <button
+                            type="button"
+                            onClick={() => setSkipLocation(false)}
+                            className="ml-auto text-xs text-forest font-semibold hover:underline"
+                          >
+                            + Add location
+                          </button>
+                        </div>
+                      )}
                     </motion.div>
 
                     <motion.div variants={formFieldVariants}>
