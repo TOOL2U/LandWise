@@ -92,7 +92,7 @@ export default function Hero() {
                 variant="secondary"
                 size="lg"
                 className="w-full sm:w-auto border-2 border-forest text-forest hover:bg-forest/10 shadow-lg hover:shadow-xl transition-all duration-300"
-                onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 {t.hero.cta}
               </Button>
