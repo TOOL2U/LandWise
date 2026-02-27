@@ -63,34 +63,16 @@ export default function Portfolio() {
                 caption: "In-depth terrain and vegetation analysis for development planning."
             },
             {
-                src: "/assets/portfolio/slide_10.png",
-                alt: "Site Context",
-                title: "Environmental Context",
-                caption: "Analysis of surrounding environment and site conditions."
-            },
-            {
                 src: "/assets/portfolio/slide_12.png",
                 alt: "Development Planning",
                 title: "Development Feasibility",
                 caption: "Visualizing potential development zones and infrastructure capability."
             },
             {
-                src: "/assets/portfolio/slide_13.png",
-                alt: "Terrain Data",
-                title: "Topographic Data",
-                caption: "Precise topographic data mapped for accurate engineering."
-            },
-            {
                 src: "/assets/portfolio/18.png",
                 alt: "Project Documentation",
                 title: "Project Documentation",
                 caption: "Complete project documentation and analysis deliverables."
-            },
-            {
-                src: "/assets/portfolio/11.png",
-                alt: "Advanced Analysis",
-                title: "Advanced Site Analysis",
-                caption: "Detailed analysis of site characteristics and development potential."
             },
             {
                 src: "/assets/portfolio/12.png",
@@ -103,6 +85,90 @@ export default function Portfolio() {
                 alt: "Drainage Analysis - Haad Yao Project",
                 title: "Drainage Analysis – Haad Yao Project",
                 caption: "Detailed drainage analysis and surface water assessment for the Haad Yao development project."
+            },
+            {
+                src: "/assets/2.jpg",
+                alt: "Drainage Analysis Overlay",
+                title: "Drainage Analysis – Terrain Overlay",
+                caption: "Surface water drainage analysis overlaid on terrain model with flow channel mapping and roadside drainage recommendations."
+            },
+            {
+                src: "/assets/3.jpg",
+                alt: "Topographic Contour Map",
+                title: "Topographic Contour Map",
+                caption: "High-precision topographic contour mapping with index and intermediate contours for elevation and terrain analysis."
+            },
+            {
+                src: "/assets/4.jpg",
+                alt: "Solar Exposure Analysis",
+                title: "Solar Exposure Analysis",
+                caption: "Solar exposure mapping showing shade zones, partial shade, moderate exposure, and high-exposure areas with sun path diagram."
+            },
+            {
+                src: "/assets/5.jpg",
+                alt: "Raw Terrain Massing Model",
+                title: "Terrain + Massing Model",
+                caption: "Preliminary SketchUp visualization of raw terrain with massing model used for analysis and positioning."
+            },
+            {
+                src: "/assets/6.jpg",
+                alt: "Rendered Terrain Visualization",
+                title: "3D Terrain Visualization",
+                caption: "Photorealistic rendered terrain model with villa positioning for development visualization and planning."
+            },
+            {
+                src: "/assets/7.jpg",
+                alt: "Front View Terrain Section",
+                title: "Section Analysis – View Protection",
+                caption: "Front view terrain section showing vertical relationship between plots and elevation analysis for view protection assessment."
+            },
+            {
+                src: "/assets/8.jpg",
+                alt: "Multi-Villa Massing Model",
+                title: "Multi-Villa Terrain Massing",
+                caption: "Preliminary SketchUp massing model showing multiple villa positions on terrain for development feasibility analysis."
+            },
+            {
+                src: "/assets/9.jpg",
+                alt: "Rendered Hillside Development",
+                title: "Hillside Villa Development",
+                caption: "Photorealistic rendering of hillside villa development integrated with natural terrain and vegetation."
+            },
+            {
+                src: "/assets/12.jpg",
+                alt: "Side View Terrain Section",
+                title: "Side View Section Analysis",
+                caption: "Side view terrain section showing plot elevation relationships and seaview eye level for design positioning."
+            },
+            {
+                src: "/assets/14.jpg",
+                alt: "Rear Massing Model View",
+                title: "Rear Terrain Section View",
+                caption: "Raw terrain and massing model from rear perspective showing building positions relative to slope profile."
+            },
+            {
+                src: "/assets/15.jpg",
+                alt: "Rendered Hillside Rear View",
+                title: "Hillside Development – Rear View",
+                caption: "Photorealistic rear view rendering of hillside villas showing terrain integration and structural positioning."
+            },
+            {
+                src: "/assets/17.jpg",
+                alt: "Site View Massing Study",
+                title: "Real Site View + Terrain Massing",
+                caption: "On-site photographic reference integrated with terrain massing model to verify view alignment and design positioning."
+            },
+            {
+                src: "/assets/18.jpg",
+                alt: "Rendered Pool View",
+                title: "Villa View Visualization",
+                caption: "Photorealistic visualization of infinity pool view confirming sightlines and landscape context from the proposed villa position."
+            },
+            {
+                src: "/assets/19.jpg",
+                alt: "Terrain Side Section",
+                title: "Terrain Profile – Side Section",
+                caption: "Raw terrain side section visualization showing elevation changes and building mass placement along the hillside."
             }
         ]
     };
