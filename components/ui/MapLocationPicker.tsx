@@ -203,13 +203,14 @@ export default function MapLocationPicker({
   };
 
   const handleManualLinkSubmit = () => {
-    // Extract coordinates from Google Maps link
+    // Try to extract coordinates from Google Maps link
     const coordPattern = /@(-?\d+\.\d+),(-?\d+\.\d+)/;
     const qPattern = /q=(-?\d+\.\d+),(-?\d+\.\d+)/;
     
     let match = manualLink.match(coordPattern) || manualLink.match(qPattern);
     
     if (match) {
+      // Found coordinates in the link
       const lat = parseFloat(match[1]);
       const lng = parseFloat(match[2]);
       
@@ -218,12 +219,19 @@ export default function MapLocationPicker({
         lng,
         mapsLink: manualLink
       });
-      
-      setManualLink('');
-      setShowManualInput(false);
     } else {
-      alert('Invalid Google Maps link. Please copy a valid link from Google Maps.');
+      // Accept any input (shortened links, text, etc.)
+      // Use Thailand center as placeholder coordinates - the actual location is in mapsLink
+      onChange({
+        lat: 9.5, // Approximate center of Thailand (for validation purposes)
+        lng: 99.5,
+        address: 'Location provided via link/text',
+        mapsLink: manualLink
+      });
     }
+    
+    setManualLink('');
+    setShowManualInput(false);
   };
 
   const handleClearLocation = () => {
@@ -274,10 +282,10 @@ export default function MapLocationPicker({
       {showManualInput && (
         <div className="flex gap-2">
           <input
-            type="url"
+            type="text"
             value={manualLink}
             onChange={(e) => setManualLink(e.target.value)}
-            placeholder="Paste Google Maps link here"
+            placeholder="Paste any Google Maps link or location description"
             className="flex-1 px-4 py-2 border border-charcoal/20 rounded-lg focus:ring-2 focus:ring-clay focus:border-clay text-sm"
           />
           <Button
